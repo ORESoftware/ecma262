@@ -5527,7 +5527,7 @@
       </emu-alg>
     </emu-clause>
 
-    <emu-clause id="sec-tostring" type="abstract operation">
+    <emu-clause id="sec-tostring" oldids="table-tostring-conversions" type="abstract operation">
       <h1>
         ToString (
           _argument_: an ECMAScript language value,
@@ -5535,89 +5535,22 @@
       </h1>
       <dl class="header">
         <dt>description</dt>
-        <dd>It converts _argument_ to a value of type String according to <emu-xref href="#table-tostring-conversions"></emu-xref>:</dd>
+        <dd>It converts _argument_ to a value of type String.</dd>
       </dl>
-      <emu-table id="table-tostring-conversions" caption="ToString Conversions" oldids="table-12">
-        <table>
-          <tr>
-            <th>
-              Argument Type
-            </th>
-            <th>
-              Result
-            </th>
-          </tr>
-          <tr>
-            <td>
-              Undefined
-            </td>
-            <td>
-              Return *"undefined"*.
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Null
-            </td>
-            <td>
-              Return *"null"*.
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Boolean
-            </td>
-            <td>
-              <p>If _argument_ is *true*, return *"true"*.</p>
-              <p>If _argument_ is *false*, return *"false"*.</p>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Number
-            </td>
-            <td>
-              Return Number::toString(_argument_, 10).
-            </td>
-          </tr>
-          <tr>
-            <td>
-              String
-            </td>
-            <td>
-              Return _argument_.
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Symbol
-            </td>
-            <td>
-              Throw a *TypeError* exception.
-            </td>
-          </tr>
-          <tr>
-            <td>
-              BigInt
-            </td>
-            <td>
-              Return BigInt::toString(_argument_, 10).
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Object
-            </td>
-            <td>
-              <p>Apply the following steps:</p>
-              <emu-alg>
-                1. Let _primValue_ be ? ToPrimitive(_argument_, ~string~).
-                1. Return ? ToString(_primValue_).
-              </emu-alg>
-            </td>
-          </tr>
-        </table>
-      </emu-table>
+      <emu-alg>
+        1. If _argument_ is a String, return _argument_.
+        1. If _argument_ is a Symbol, throw a *TypeError* exception.
+        1. If _argument_ is *undefined*, return *"undefined"*.
+        1. If _argument_ is *null*, return *"null"*.
+        1. If _argument_ is *true*, return *"true"*.
+        1. If _argument_ is *false*, return *"false"*.
+        1. If _argument_ is a Number, return Number::toString(_argument_, 10).
+        1. If _argument_ is a BigInt, return BigInt::toString(_argument_, 10).
+        1. Assert: _argument_ is an Object.
+        1. Let _primValue_ be ? ToPrimitive(_argument_, ~string~).
+        1. Assert: _primValue_ is not an Object.
+        1. Return ? ToString(_primValue_).
+      </emu-alg>
     </emu-clause>
 
     <emu-clause id="sec-toobject" type="abstract operation">
