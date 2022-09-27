@@ -4803,7 +4803,7 @@
       </emu-clause>
     </emu-clause>
 
-    <emu-clause id="sec-toboolean" type="abstract operation">
+    <emu-clause id="sec-toboolean" oldids="table-toboolean-conversions" type="abstract operation">
       <h1>
         ToBoolean (
           _argument_: an ECMAScript language value,
@@ -4811,87 +4811,14 @@
       </h1>
       <dl class="header">
         <dt>description</dt>
-        <dd>It converts _argument_ to a value of type Boolean according to <emu-xref href="#table-toboolean-conversions"></emu-xref>:</dd>
+        <dd>It converts _argument_ to a value of type Boolean.</dd>
       </dl>
-      <emu-table id="table-toboolean-conversions" caption="ToBoolean Conversions" oldids="table-10">
-        <table>
-          <tr>
-            <th>
-              Argument Type
-            </th>
-            <th>
-              Result
-            </th>
-          </tr>
-          <tr>
-            <td>
-              Undefined
-            </td>
-            <td>
-              Return *false*.
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Null
-            </td>
-            <td>
-              Return *false*.
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Boolean
-            </td>
-            <td>
-              Return _argument_.
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Number
-            </td>
-            <td>
-              If _argument_ is *+0*<sub>𝔽</sub>, *-0*<sub>𝔽</sub>, or *NaN*, return *false*; otherwise return *true*.
-            </td>
-          </tr>
-          <tr>
-            <td>
-              String
-            </td>
-            <td>
-              If _argument_ is the empty String (its length is 0), return *false*; otherwise return *true*.
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Symbol
-            </td>
-            <td>
-              Return *true*.
-            </td>
-          </tr>
-          <tr>
-            <td>
-              BigInt
-            </td>
-            <td>
-              If _argument_ is *0*<sub>ℤ</sub>, return *false*; otherwise return *true*.
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Object
-            </td>
-            <td>
-              Return *true*.
-              <emu-note>
-                <p>An alternate algorithm related to the [[IsHTMLDDA]] internal slot is mandated in section <emu-xref href="#sec-IsHTMLDDA-internal-slot-to-boolean"></emu-xref>.</p>
-              </emu-note>
-            </td>
-          </tr>
-        </table>
-      </emu-table>
+      <emu-alg>
+        1. If _argument_ is a Boolean, return _argument_.
+        1. If _argument_ is any of *undefined*, *null*, *+0*<sub>𝔽</sub>, *-0*<sub>𝔽</sub>, *NaN*, *0*<sub>ℤ</sub>, or the empty String, return *false*.
+        1. [id="step-to-boolean-web-compat-insertion-point"] NOTE: This step is replaced in section <emu-xref href="#sec-IsHTMLDDA-internal-slot-to-boolean"></emu-xref>.
+        1. Return *true*.
+      </emu-alg>
     </emu-clause>
 
     <emu-clause id="sec-tonumeric" type="abstract operation">
@@ -47888,16 +47815,15 @@ THH:mm:ss.sss
 
       <emu-annex id="sec-IsHTMLDDA-internal-slot-to-boolean">
         <h1>Changes to ToBoolean</h1>
-        <p>The result column in <emu-xref href="#table-toboolean-conversions"></emu-xref> for an argument type of Object is replaced with the following algorithm:</p>
-        <emu-alg>
+        <p>The following step replaces step <emu-xref href="#step-to-boolean-web-compat-insertion-point"></emu-xref> of ToBoolean:</p>
+        <emu-alg replaces-step="step-to-boolean-web-compat-insertion-point">
           1. If _argument_ has an [[IsHTMLDDA]] internal slot, return *false*.
-          1. Return *true*.
         </emu-alg>
       </emu-annex>
 
       <emu-annex id="sec-IsHTMLDDA-internal-slot-aec">
         <h1>Changes to IsLooselyEqual</h1>
-        <p>During IsLooselyEqual the following steps are performed in place of step <emu-xref href="#step-abstract-equality-comparison-web-compat-insertion-point"></emu-xref>:</p>
+        <p>The following steps replace step <emu-xref href="#step-abstract-equality-comparison-web-compat-insertion-point"></emu-xref> of IsLooselyEqual:</p>
         <emu-alg replaces-step="step-abstract-equality-comparison-web-compat-insertion-point">
           1. Perform the following steps:
             1. If _x_ is an Object, _x_ has an [[IsHTMLDDA]] internal slot, and _y_ is either *null* or *undefined*, return *true*.
