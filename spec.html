@@ -4911,7 +4911,7 @@
       </emu-alg>
     </emu-clause>
 
-    <emu-clause id="sec-tonumber" type="abstract operation">
+    <emu-clause id="sec-tonumber" oldids="table-tonumber-conversions" type="abstract operation">
       <h1>
         ToNumber (
           _argument_: an ECMAScript language value,
@@ -4919,88 +4919,20 @@
       </h1>
       <dl class="header">
         <dt>description</dt>
-        <dd>It converts _argument_ to a value of type Number according to <emu-xref href="#table-tonumber-conversions"></emu-xref>:</dd>
+        <dd>It converts _argument_ to a value of type Number.</dd>
       </dl>
-      <emu-table id="table-tonumber-conversions" caption="ToNumber Conversions" oldids="table-11">
-        <table>
-          <tr>
-            <th>
-              Argument Type
-            </th>
-            <th>
-              Result
-            </th>
-          </tr>
-          <tr>
-            <td>
-              Undefined
-            </td>
-            <td>
-              Return *NaN*.
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Null
-            </td>
-            <td>
-              Return *+0*<sub>𝔽</sub>.
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Boolean
-            </td>
-            <td>
-              If _argument_ is *true*, return *1*<sub>𝔽</sub>. If _argument_ is *false*, return *+0*<sub>𝔽</sub>.
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Number
-            </td>
-            <td>
-              Return _argument_ (no conversion).
-            </td>
-          </tr>
-          <tr>
-            <td>
-              String
-            </td>
-            <td>
-              Return ! StringToNumber(_argument_).
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Symbol
-            </td>
-            <td>
-              Throw a *TypeError* exception.
-            </td>
-          </tr>
-          <tr>
-            <td>
-              BigInt
-            </td>
-            <td>
-              Throw a *TypeError* exception.
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Object
-            </td>
-            <td>
-              <p>Apply the following steps:</p>
-              <emu-alg>
-                1. Let _primValue_ be ? ToPrimitive(_argument_, ~number~).
-                1. Return ? ToNumber(_primValue_).
-              </emu-alg>
-            </td>
-          </tr>
-        </table>
-      </emu-table>
+      <emu-alg>
+        1. If _argument_ is a Number, return _argument_.
+        1. If _argument_ is either a Symbol or a BigInt, throw a *TypeError* exception.
+        1. If _argument_ is *undefined*, return *NaN*.
+        1. If _argument_ is *null* or *false*, return *+0*<sub>𝔽</sub>.
+        1. If _argument_ is *true*, return *1*<sub>𝔽</sub>.
+        1. If _argument_ is a String, return StringToNumber(_argument_).
+        1. Assert: _argument_ is an Object.
+        1. Let _primValue_ be ? ToPrimitive(_argument_, ~number~).
+        1. Assert: _primValue_ is not an Object.
+        1. Return ? ToNumber(_primValue_).
+      </emu-alg>
 
       <emu-clause id="sec-tonumber-applied-to-the-string-type">
         <h1>ToNumber Applied to the String Type</h1>
