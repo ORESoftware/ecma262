@@ -1,0 +1,29 @@
+name: 'esmeta typecheck'
+
+on: [pull_request]
+
+jobs:
+  esmeta-typecheck:
+    name: 'esmeta typecheck'
+    runs-on: ubuntu-latest
+
+    env:
+      ESMETA_HOME: vendor/esmeta
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+      - name: download esmeta
+        run: 'git clone --depth 1 --branch v0.1.0-rc3 https://github.com/es-meta/esmeta.git "${ESMETA_HOME}"'
+      - name: build esmeta
+        run: '(cd "${ESMETA_HOME}"; sbt assembly)'
+      - name: link
+        run: 'rmdir "${ESMETA_HOME}"/ecma262 && ln -s "$(pwd)" "${ESMETA_HOME}"/ecma262'
+      - name: typecheck
+        run: '"${ESMETA_HOME}"/bin/esmeta tycheck -status -tycheck:log'
+
