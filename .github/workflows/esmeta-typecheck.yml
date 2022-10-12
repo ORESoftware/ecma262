@@ -19,11 +19,11 @@ jobs:
           distribution: temurin
           java-version: 17
       - name: download esmeta
-        run: 'git clone --depth 1 --branch v0.1.0-rc3 https://github.com/es-meta/esmeta.git "${ESMETA_HOME}"'
+        run: 'git clone --depth 1 --branch v0.1.0-rc4 https://github.com/es-meta/esmeta.git "${ESMETA_HOME}"'
       - name: build esmeta
         run: '(cd "${ESMETA_HOME}"; sbt assembly)'
       - name: link
         run: 'rmdir "${ESMETA_HOME}"/ecma262 && ln -s "$(pwd)" "${ESMETA_HOME}"/ecma262'
       - name: typecheck
-        run: '"${ESMETA_HOME}"/bin/esmeta tycheck -status -tycheck:log'
+        run: '"${ESMETA_HOME}"/bin/esmeta tycheck -status -tycheck:log -tycheck:ignore=esmeta-ignore.json'
 
