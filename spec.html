@@ -32268,7 +32268,7 @@
               1. Let _disambiguatedInstant_ be _possibleInstants_[0].
             1. Else,
               1. NOTE: _t_ represents a local time skipped at a positive time zone transition (e.g. due to daylight saving time starting or a time zone rule change increasing the UTC offset).
-              1. Let _possibleInstantsBefore_ be GetNamedTimeZoneEpochNanoseconds(_localTimeZone_, ℝ(YearFromTime(_tBefore_)), ℝ(MonthFromTime(_tBefore_)) + 1, ℝ(DateFromTime(_tBefore_)), ℝ(HourFromTime(_tBefore_)), ℝ(MinFromTime(_tBefore_)), ℝ(SecFromTime(_tBefore_)), ℝ(msFromTime(_tBefore_)), 0, 0), where _tBefore_ is the largest integral Number &lt; _t_ for which _possibleInstantsBefore_ is not empty (i.e., _tBefore_ represents the last local time before the transition).
+              1. [declared="tBefore"] Let _possibleInstantsBefore_ be GetNamedTimeZoneEpochNanoseconds(_localTimeZone_, ℝ(YearFromTime(_tBefore_)), ℝ(MonthFromTime(_tBefore_)) + 1, ℝ(DateFromTime(_tBefore_)), ℝ(HourFromTime(_tBefore_)), ℝ(MinFromTime(_tBefore_)), ℝ(SecFromTime(_tBefore_)), ℝ(msFromTime(_tBefore_)), 0, 0), where _tBefore_ is the largest integral Number &lt; _t_ for which _possibleInstantsBefore_ is not empty (i.e., _tBefore_ represents the last local time before the transition).
               1. Let _disambiguatedInstant_ be the last element of _possibleInstantsBefore_.
             1. Let _offsetNs_ be GetNamedTimeZoneOffsetNanoseconds(_localTimeZone_, _disambiguatedInstant_).
           1. Let _offsetMs_ be truncate(_offsetNs_ / 10<sup>6</sup>).
